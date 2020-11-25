@@ -1,0 +1,108 @@
+@import "../../../styles/variables";
+
+.chatWindow {
+  flex: 0.81; //0.75;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  .chatWindow__header {
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+    border-bottom: $layout_border;
+    padding: 1rem 1.2rem;
+
+    .chatWindow__header_left {
+      display: flex;
+      align-items: center;
+
+      .chatWindow__header_info {
+        flex: 1;
+        padding-left: 1rem;
+
+        .chatWindow__header_name {
+          font-weight: 700;
+          letter-spacing: 1px;
+          margin: 0;
+        }
+
+        .chatWindow__header_status {
+          color: grey;
+          font-size: 0.86rem;
+          margin: 0;
+        }
+      }
+    }
+
+    .chatWindow__header__right {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+    }
+  }
+
+  .chatWindow__body {
+    flex: 1;
+    padding: 2.6rem 1.6rem;
+    overflow-y: scroll;
+
+    .chat__receiver {
+      margin-left: auto;
+      background-color: $themeColor !important;
+      color: white;
+    }
+
+    .chat__message {
+      position: relative;
+      padding: 0.4rem 1.6rem;
+      font-size: 1rem;
+      background-color: white;
+      border-radius: 1rem;
+      width: fit-content;
+      margin-bottom: 3rem;
+
+      .chat__name {
+        font-size: 0.8rem;
+        position: absolute;
+        top: -20px;
+        left: 1rem;
+        color: black;
+      }
+
+      .chat__timestamp {
+        margin-left: 1rem;
+        font-size: xx-small;
+      }
+    }
+  }
+
+  .chatWindow__footer {
+    background-color: lighten(lightgray, 13);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 62px;
+    border-top: $layout_border;
+    padding: 0 1rem;
+    position: relative;
+
+    > form {
+      flex: 1;
+      display: flex;
+      padding: 0 1rem;
+
+      > input {
+        flex: 1;
+        border-radius: 30px;
+        padding: 0.5rem;
+        border: 0;
+        outline: 0;
+        padding: 0.5rem 1rem;
+      }
+
+      > button {
+        display: none;
+      }
+    }
+  }
+}

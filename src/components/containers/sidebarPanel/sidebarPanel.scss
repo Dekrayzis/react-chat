@@ -1,0 +1,41 @@
+@import "../../../styles/variables";
+
+.sidebar_panel {
+  padding: 0 0 1rem 1rem;
+
+  .sidebar_panel__header_title {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+
+    .sidebar_panel__header_left {
+      .sidebar_panel_title,
+      .title_counter {
+        color: $label_color;
+        font-size: 0.75rem;
+        font-weight: 900;
+        margin-bottom: 0.2rem;
+        text-transform: uppercase;
+
+        .title_counter {
+          color: lighten($label_color, 30);
+        }
+      }
+    }
+
+    .sidebar_panel__header_right {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  .sidebar_panel_area {
+    padding: 0;
+    flex: 0.3 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+}

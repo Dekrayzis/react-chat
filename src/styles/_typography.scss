@@ -1,0 +1,28 @@
+@import "./variables";
+
+a {
+  text-decoration: none;
+}
+
+//-- Status
+.userStatus {
+  border-radius: 6px;
+  font-size: 0.75rem;
+  width: fit-content;
+  padding: 0.25rem;
+
+  &.status-away {
+    background-color: lighten(#dfc262, 30);
+    color: #dfc262;
+  }
+
+  &.status-offline {
+    background-color: lighten(#fb8585, 21);
+    color: #fb8585;
+  }
+
+  &.status-online {
+    background-color: lighten(#62df90, 30);
+    color: #62df90;
+  }
+}

@@ -1,0 +1,37 @@
+@import "./variables";
+
+* {
+  font-family: $font1;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.app {
+  background-color: #ececec;
+  display: grid;
+  height: 100vh;
+  place-items: center;
+  overflow: hidden;
+  z-index: 0;
+
+  &:after {
+    content: "";
+    position: absolute;
+    width: 30vw;
+    background-color: #3dd37f;
+    height: inherit;
+  }
+
+  .app__body {
+    background-color: #f5f5f5;
+    box-shadow: -1px 4px 20px 6px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    display: flex;
+    width: 90vw;
+    height: 90vh;
+    z-index: 1;
+  }
+}

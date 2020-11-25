@@ -1,0 +1,49 @@
+@import "../../../styles/variables";
+
+.sidebar {
+  position: relative;
+  border-right: $layout_border;
+  display: flex;
+  flex-direction: column;
+  flex: 0.21; //0.25;
+  min-width: 340px;
+
+  .sidebar__header {
+    display: grid;
+    place-items: center;
+    padding: 0;
+    margin: 1.6rem 0 1rem;
+
+    .avatar_box {
+      margin-bottom: 0;
+
+      .avatar_box_name {
+        padding-left: 0.5rem;
+      }
+    }
+  }
+
+  .sidebar__menu {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 3rem;
+  }
+
+  .copyright {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    font-size: 0.7rem;
+    opacity: 0.4;
+  }
+}
+
+.channelList {
+  border-right: $layout_border;
+  width: 18vw;
+  height: 100vh;
+
+  .chatInfo {
+    padding: 0.5rem 0;
+  }
+}

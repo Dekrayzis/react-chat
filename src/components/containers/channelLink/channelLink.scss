@@ -1,0 +1,67 @@
+@import "../../../styles/variables";
+
+.channel_link {
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+  border-bottom: $layout_border;
+  padding: 1rem 0;
+
+  .channel_link_left {
+    display: flex;
+    align-items: center;
+
+    .channel_link_info {
+      flex: 1;
+      padding-left: 1rem;
+
+      .channel_link_name {
+        color: $text_color;
+        font-weight: 700;
+        font-size: 0.8rem;
+        letter-spacing: 1px;
+        margin: 0;
+      }
+
+      .channel_link_msg {
+        color: $text_color;
+        font-size: 0.9rem;
+        margin: 0;
+      }
+    }
+  }
+  .channel_link__right {
+    display: flex;
+    align-items: center;
+
+    .channel_link__info {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+
+      .notification {
+        background-color: $themeColor;
+        border-radius: 100%;
+        width: 20px;
+        height: 20px;
+        margin-bottom: 0.25rem;
+        position: relative;
+
+        .count {
+          position: absolute;
+          color: whitesmoke;
+          font-weight: 400;
+          font-size: 0.7rem;
+          left: 6px;
+          top: 3px;
+        }
+      }
+
+      .timestamp {
+        color: lighten($text_color, 30);
+        font-weight: 700;
+        font-size: 0.7rem;
+        letter-spacing: 1px;
+      }
+    }
+  }
+}

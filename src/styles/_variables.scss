@@ -14,4 +14,16 @@
       format("svg");
 }
 
-$font1: 'Suisse Int'l';
+//-- Fonts
+$font1: "Suisse Int'l";
+
+//-- Color scheme
+$themeColor: #25d366;
+$layout_border-color: #d3d3d34a;
+$label_color: #6d6d6d;
+$text_color: #737792;
+
+//-- Layout
+$layout_border: 1px solid $layout_border-color;
+
+$button_shadow: 0px 5px 8px 1px rgba(0, 0, 0, 0.09);
