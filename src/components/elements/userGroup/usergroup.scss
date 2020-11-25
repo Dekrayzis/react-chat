@@ -1,0 +1,36 @@
+@import "../../../styles/variables";
+
+.userGroup {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  .avatars {
+    display: inline-block;
+    transform: scale(-1, 1);
+    padding: 0 1rem 1rem;
+
+    .user_avatar {
+      position: relative;
+      display: inline-block;
+      border: 4px solid $themeColor;
+      border-radius: 50%;
+      overflow: hidden;
+      width: 40px;
+
+      &:not(:first-child) {
+        margin-left: -24px;
+      }
+
+      img {
+        width: 100%;
+        display: block;
+        transform: scale(-1, 1);
+      }
+    }
+  }
+
+  .userCount {
+    padding-bottom: 1rem;
+  }
+}

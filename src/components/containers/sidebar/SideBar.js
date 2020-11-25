@@ -57,7 +57,11 @@ const SideBar = () => {
     <>
       <aside className="sidebar">
         <div className="sidebar__header">
-          <AvatarDetails user={user} name={user.displayName} size="lrg" />
+          <AvatarDetails
+            image={user.photoURL}
+            name={user.displayName}
+            size="lrg"
+          />
         </div>
 
         <div className="sidebar__menu">
