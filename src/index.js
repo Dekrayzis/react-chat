@@ -1,12 +1,23 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+
+//-- Redux store
+import { StateProvider } from "./context/StateProvider";
+import reducer, { initialState } from "./redux/Reducer";
+
+//-- icon library stylesheet
 import "./fontello/css/fontello.css";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <StateProvider initialState={initialState} reducer={reducer}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </StateProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

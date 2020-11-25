@@ -37,7 +37,7 @@ const adminControls = [
   },
   {
     id: 1,
-    label: "Block user",
+    label: "Ban user",
     icon: "cancel-circled",
   },
   {

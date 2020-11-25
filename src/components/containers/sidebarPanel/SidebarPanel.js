@@ -1,7 +1,10 @@
-import React from "react";
-import "./sidebarPanel.scss";
+import React, { useEffect, useState } from "react";
 import ToggleButton from "../../elements/buttons/ToggleButton";
 import ChannelLink from "../channelLink/ChannelLink";
+import { useStateValue } from "../../../context/StateProvider";
+
+//-- Stylesheet
+import "./sidebarPanel.scss";
 
 const channels = [
   {
@@ -24,6 +27,21 @@ const channels = [
 ];
 
 const SidebarPanel = () => {
+  const [{ user, currentChannel, showAllChannels }, dispatch] = useStateValue();
+  const [toggleChannels_Panel, setShowAllChannels_Panel] = useState(true);
+
+  useEffect(() => {
+    setShowAllChannels_Panel(!toggleChannels_Panel);
+  }, [showAllChannels]);
+
+  const toggle_allchannels = () => {
+    console.log("hit");
+    dispatch({
+      type: "SET_TOGGLE_ALL_CHANNELS",
+      showAllChannels: !toggleChannels_Panel,
+    });
+  };
+
   return (
     <div className="sidebar_panel">
       <div className="sidebar_panel__header_title">
@@ -33,7 +51,11 @@ const SidebarPanel = () => {
           </span>
         </div>
         <div className="sidebar_panel__header_right">
-          <ToggleButton label="See all" icon="right-open-1" />
+          <ToggleButton
+            label="See all"
+            icon="right-open-1"
+            onClick={toggle_allchannels}
+          />
         </div>
       </div>
       <div className="sidebar_panel_area">
