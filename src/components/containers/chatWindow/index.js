@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from "react";
 
 //-- Elements
 import Avatar from "./../../elements/Avatar/Avatar";
@@ -11,17 +12,38 @@ import AllChanelsPanel from "../allChannels/AllChanelsPanel";
 
 import { useStateValue } from "../../../context/StateProvider";
 
+//-- Store
+import db from "../../../firebase";
+
 //-- Styles
 import "./chatWindow.scss";
 import ChatFooter from "./ChatFooter";
 
 const ChatWindow = () => {
-  const roomId = "0Fn6eCJPtLPNxJ3emDZd"; // asssasins creed room
+  // asssasins creed room
   const [{ user, currentChannel, showAllChannels }, dispatch] = useStateValue();
   const [toggleChatDetails, setToggleChatDetails] = useState(false);
 
   //-- Messages
   const [messages, setMessages] = useState([]);
+
+  useEffect(() => {
+    if (currentChannel.id) {
+      db.collection("rooms")
+        .doc(currentChannel.id)
+        .collection("messages")
+        .orderBy("timestamp", "asc")
+        .onSnapshot((snapShot) =>
+          setMessages(() => snapShot.docs.map((doc) => doc.data()))
+        );
+    }
+  }, [currentChannel.id]);
+
+  const isImage = (message) => {
+    return (
+      message.hasOwnProperty("image") && !message.hasOwnProperty("message")
+    );
+  };
 
   return (
     <>
@@ -54,14 +76,34 @@ const ChatWindow = () => {
         </div>
 
         {/* Chat body */}
-        <div className="chatWindow__body"></div>
+        <div className="chatWindow__body">
+          {messages.length > 0 &&
+            messages.map((msg) => (
+              <div
+                key={msg.name}
+                className={`chat__message ${
+                  msg.name === user.displayName && "chat__receiver"
+                }`}
+              >
+                <span className="chat__name">{msg.name}</span>
+                {isImage(msg) ? (
+                  <img src={msg.image} alt="an image" />
+                ) : (
+                  msg.message
+                )}
+                <span className="chat__timestamp">
+                  {new Date(msg.timestamp?.toDate()).toUTCString()}
+                </span>
+              </div>
+            ))}
+        </div>
 
         {/* Chat footer */}
-        <ChatFooter channelID={roomId} />
+        <ChatFooter channelID={currentChannel.id} />
       </div>
 
       {/* Chat details panel */}
-      {toggleChatDetails && <ChatDetails />}
+      {toggleChatDetails && <ChatDetails channel={currentChannel} />}
 
       {/* User details panel */}
       {/* {toggleChatDetails && <UserDetails />} */}

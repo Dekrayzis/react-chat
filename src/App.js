@@ -13,6 +13,7 @@ import Chat from "./views/Chat";
 //-- Store
 import { auth } from "./firebase";
 import { useStateValue } from "./context/StateProvider";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   const history = useHistory();
@@ -32,7 +33,7 @@ function App() {
         dispatch({
           type: "CLEAR_USER",
         });
-        history.push("/");
+        history.push("/login");
       }
     });
   }, []);
@@ -40,9 +41,9 @@ function App() {
   return (
     <div className="app">
       <Switch>
-        <Route path={"/"} exact component={LoginScreen} />
-        <Route path={"/rooms/"} exact component={Chat} />
+        <Route path={"/login"} exact component={LoginScreen} />
         <Route path={"/rooms/:roomId"} exact component={Chat} />
+        <ProtectedRoute path={"/rooms"} component={Chat} />
       </Switch>
     </div>
   );

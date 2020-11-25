@@ -1,7 +1,7 @@
 import React from "react";
 import "./avatarDetails.scss";
 
-const AvatarDetails = ({ user, size }) => {
+const AvatarDetails = ({ user, size, name }) => {
   return (
     <div className="avatar_box">
       <div className={`avatar ${size}`}>
@@ -11,7 +11,7 @@ const AvatarDetails = ({ user, size }) => {
           className={`avatar-img ${size}`}
         />
       </div>
-      <span className="avatar_box_name">{user.displayName}</span>
+      <span className="avatar_box_name">{name}</span>
     </div>
   );
 };
