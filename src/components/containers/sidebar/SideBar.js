@@ -3,13 +3,11 @@ import "./sidebar.scss";
 import AvatarDetails from "./../avatarDetails/AvatarDetails";
 import { MenuButton } from "./../../elements";
 import SidebarPanel from "../sidebarPanel/SidebarPanel";
+import { useStateValue } from "../../../context/StateProvider";
+
+import { auth } from "../../../firebase";
 
 const currentYear = new Date().getFullYear();
-
-const user = {
-  displayName: "Vinni Corleone",
-  photoURL: "http://placehold.it/80x80",
-};
 
 const mainMenu = [
   {
@@ -41,9 +39,13 @@ const mainMenu = [
     id: 2,
     label: "Log out",
     icon: "logout",
+    func: () => {
+      auth.signOut().then(() => console.log("signed out"));
+    },
   },
 ];
 const SideBar = () => {
+  const [{ user, currentChannel, showAllChannels }, dispatch] = useStateValue();
   return (
     <aside className="sidebar">
       <div className="sidebar__header">
@@ -52,7 +54,11 @@ const SideBar = () => {
 
       <div className="sidebar__menu">
         {mainMenu.map((ctrl) => (
-          <MenuButton label={ctrl.label} icon={`icon-${ctrl.icon}`} />
+          <MenuButton
+            label={ctrl.label}
+            icon={`icon-${ctrl.icon}`}
+            onClick={ctrl.func}
+          />
         ))}
       </div>
       <SidebarPanel />
