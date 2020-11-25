@@ -1,4 +1,5 @@
 import React from "react";
+import moment from "moment";
 
 //-- Components
 import { MenuButton } from "./../../elements";
@@ -46,25 +47,28 @@ const adminControls = [
     icon: "trash-1",
   },
 ];
-const index = () => {
+const index = ({ channel }) => {
   return (
     <div className="chatwindow__details">
       <h2 className="section__title sideBar__title">Channel information</h2>
       {/* Header */}
       <div className="chatwindow__details_header">
-        <AvatarDetails user={roomInfo} size="lrg" />
+        <AvatarDetails user={channel} name={channel.name} size="lrg" />
       </div>
       {/* Room details */}
       <div className="chatwindow__details_section">
         <span className="section__title">Author</span>
-        <p className="chatwindow__info">{roomInfo.createdBy}</p>
+        <p className="chatwindow__info">{channel.createdBy}</p>
         <span className="section__title">Created on</span>
-        <p className="chatwindow__info">some date</p>
+        <p className="chatwindow__info">
+          {moment(channel.createdAt.toDate()).format("dddd MMMM Do YYYY")}
+          {/* //{moment(channel.createdAt).format("dddd MMMM Do YYYY")} */}
+        </p>
       </div>
       {/* description */}
       <div className="chatwindow__details_section">
         <span className="section__title">Room info</span>
-        <p className="chatwindow__info">{roomInfo.description}</p>
+        <p className="chatwindow__info">{channel.description}</p>
       </div>
       {/* User controls */}
       <div className="chatwindow__details_section user_controls">
