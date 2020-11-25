@@ -42,7 +42,6 @@ function App() {
     <div className="app">
       <Switch>
         <Route path={"/login"} exact component={LoginScreen} />
-        <Route path={"/rooms/:roomId"} exact component={Chat} />
         <ProtectedRoute path={"/rooms"} component={Chat} />
       </Switch>
     </div>

@@ -103,7 +103,9 @@ const ChatWindow = () => {
       </div>
 
       {/* Chat details panel */}
-      {toggleChatDetails && <ChatDetails channel={currentChannel} />}
+      {toggleChatDetails && (
+        <ChatDetails channel={currentChannel} currMsgs={messages} user={user} />
+      )}
 
       {/* User details panel */}
       {/* {toggleChatDetails && <UserDetails />} */}
