@@ -1,0 +1,62 @@
+@import "../../../styles/variables";
+
+.chatwindow__details {
+  border-left: $layout_border;
+  width: 16vw;
+  height: 100vh;
+
+  .sideBar__title {
+    padding: 1rem 1.6rem;
+    letter-spacing: 1px;
+  }
+
+  .chatwindow__details_section {
+    border-top: $layout_border;
+    padding: 2rem 1.6rem;
+
+    .chatwindow__info {
+      color: $text_color;
+      font-size: 0.9rem;
+      margin: 0;
+      margin-bottom: 1rem;
+
+      &:last-of-type {
+        margin-bottom: 0;
+      }
+    }
+
+    &.user_controls,
+    &.admin_section {
+      padding: 0;
+
+      .menuBtn {
+        padding: 0.75rem 1rem;
+        width: 100%;
+      }
+    }
+
+    &.admin_section {
+      padding: 2rem 0;
+
+      .section__title {
+        padding: 0 1.6rem 1rem;
+      }
+
+      .menuBtn {
+        &:nth-child(2),
+        &:nth-child(3) {
+          color: red;
+        }
+      }
+    }
+  }
+}
+
+.section__title {
+  display: block;
+  color: $label_color;
+  font-size: 0.75rem;
+  font-weight: 900;
+  margin-bottom: 0.2rem;
+  text-transform: uppercase;
+}
