@@ -1,12 +1,19 @@
 import React, { useState } from "react";
 import "./sidebar.scss";
+
+//-- Containers
 import AvatarDetails from "./../avatarDetails/AvatarDetails";
-import { MenuButton, IconButton } from "./../../elements";
 import SidebarPanel from "../sidebarPanel/SidebarPanel";
+import DirectMessages from "./../directMessages/DirectMessages";
+import Favourites from "../favourite/Favourites";
+
+//-- Elements
+import { MenuButton, IconButton } from "./../../elements";
+import CreateChat from "../createChat/CreateChat";
+
 import { useStateValue } from "../../../context/StateProvider";
 
 import { auth } from "../../../firebase";
-import CreateChat from "../createChat/CreateChat";
 
 const currentYear = new Date().getFullYear();
 
@@ -25,7 +32,7 @@ const SideBar = () => {
     },
     {
       id: 1,
-      label: "New group",
+      label: "Chat rooms",
       icon: "users",
     },
     {
@@ -34,17 +41,17 @@ const SideBar = () => {
       icon: "users",
     },
     {
-      id: 2,
+      id: 3,
       label: "Favourites",
       icon: "heart-empty-1",
     },
     {
-      id: 2,
+      id: 4,
       label: "Settings",
       icon: "cog-1",
     },
     {
-      id: 2,
+      id: 5,
       label: "Log out",
       icon: "logout",
       func: () => {
@@ -67,13 +74,15 @@ const SideBar = () => {
         <div className="sidebar__menu">
           {mainMenu.map((ctrl) => (
             <MenuButton
+              key={`menu-0${ctrl.id}`}
               label={ctrl.label}
               icon={`icon-${ctrl.icon}`}
               onClick={ctrl.func}
             />
           ))}
         </div>
-        <SidebarPanel />
+        {/* <SidebarPanel /> */}
+        <DirectMessages />
         <span className="copyright">&copy; {currentYear} Vicenco inc </span>
       </aside>
       {showModal ? (

@@ -1,36 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 
-import firebase from "firebase";
-
 import ChannelLink from "../channelLink/ChannelLink";
 import "./allChannelsPanel.scss";
 
 import db from "../../../firebase";
 
-const channels = [
-  {
-    id: 0,
-    name: "Assasin's Creed",
-    status: "online",
-    user: true,
-  },
-  {
-    id: 1,
-    name: "Design",
-    status: "away",
-  },
-  {
-    id: 2,
-    name: "Games",
-    status: "offline",
-    notifications: true,
-  },
-];
-
 const AllChanelsPanel = () => {
-  const [search_results, setSearchResults] = useState([]);
   const [channelsRef, setChannels] = useState([]);
+  const [search_results, setSearchResults] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -42,7 +20,6 @@ const AllChanelsPanel = () => {
           data: doc.data(),
         }))
       );
-      console.log(channelsRef);
     });
 
     return () => {
@@ -67,6 +44,7 @@ const AllChanelsPanel = () => {
     }, []);
 
     setSearchResults(searchResults);
+    setLoading(false);
   };
 
   useEffect(() => {

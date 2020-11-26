@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import ToggleButton from "../../elements/buttons/ToggleButton";
 import ChannelLink from "../channelLink/ChannelLink";
@@ -42,7 +43,6 @@ const SidebarPanel = () => {
           data: doc.data(),
         }))
       );
-      console.log(channelsRef);
     });
     return () => {
       unsubscribe();
@@ -54,7 +54,6 @@ const SidebarPanel = () => {
   }, [showAllChannels]);
 
   const toggle_allchannels = () => {
-    console.log("hit");
     dispatch({
       type: "SET_TOGGLE_ALL_CHANNELS",
       showAllChannels: !toggleChannels_Panel,

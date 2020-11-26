@@ -7,7 +7,7 @@ import { useStateValue } from "../../../context/StateProvider";
 
 import "./channelLink.scss";
 
-const ChannelLink = ({ channelId, info, status }) => {
+const ChannelLink = ({ channelId, info, status, isUser, directMsg }) => {
   const [, dispatch] = useStateValue();
   const [messages, setMessages] = useState([]);
   const [channelInfo, setChannelInfo] = useState(null);
@@ -49,6 +49,7 @@ const ChannelLink = ({ channelId, info, status }) => {
       ...channelInfo,
       id: channelId,
     };
+
     dispatch({
       type: "SET_CURRENT_CHANNEL",
       currentChannel: channel,
@@ -56,7 +57,7 @@ const ChannelLink = ({ channelId, info, status }) => {
   };
 
   return (
-    <div className="channel_link" onClick={openChat}>
+    <div className="channel_link" onClick={isUser ? directMsg : openChat}>
       <div className="channel_link_left">
         <Avatar avatar="http://placehold.it/40x40" />
         <div className="channel_link_info">
