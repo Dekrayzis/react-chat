@@ -15,7 +15,7 @@ import { auth } from "./firebase";
 import { useStateValue } from "./context/StateProvider";
 import ProtectedRoute from "./components/ProtectedRoute";
 
-function App() {
+const App = () => {
   const history = useHistory();
   const [{}, dispatch] = useStateValue();
 
@@ -29,7 +29,7 @@ function App() {
         });
         history.push("/rooms");
       } else {
-        // clear user
+        // Clear user
         dispatch({
           type: "CLEAR_USER",
         });
@@ -46,6 +46,6 @@ function App() {
       </Switch>
     </div>
   );
-}
+};
 
 export default App;

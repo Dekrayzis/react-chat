@@ -11,6 +11,8 @@
     grid-template-columns: 4fr 1fr;
     border-bottom: $layout_border;
     padding: 1rem 1.2rem;
+    position: relative;
+    z-index: 3;
 
     .chatWindow__header_left {
       display: flex;
@@ -38,6 +40,14 @@
       display: flex;
       justify-content: flex-end;
       align-items: center;
+
+      .icon-dot-3 {
+        &:before {
+          position: relative;
+          transform: rotate(-90deg);
+          left: 3px;
+        }
+      }
     }
   }
 
