@@ -8,17 +8,16 @@ import DirectMessages from "./../directMessages/DirectMessages";
 import Favourites from "../favourite/Favourites";
 
 //-- Elements
-import { MenuButton, IconButton } from "./../../elements";
+import { MenuButton } from "./../../elements";
 import CreateChat from "../createChat/CreateChat";
 
 import { useStateValue } from "../../../context/StateProvider";
-
 import { auth } from "../../../firebase";
 
 const currentYear = new Date().getFullYear();
 
 const SideBar = () => {
-  const [{ user, currentChannel, showAllChannels }, dispatch] = useStateValue();
+  const [{ user }] = useStateValue();
   const [showModal, setToggleModal] = useState(false);
 
   const mainMenu = [

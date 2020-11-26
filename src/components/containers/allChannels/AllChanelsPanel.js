@@ -2,30 +2,43 @@
 import React, { useEffect, useState } from "react";
 
 import ChannelLink from "../channelLink/ChannelLink";
+import { useStateValue } from "../../../context/StateProvider";
 import "./allChannelsPanel.scss";
 
 import db from "../../../firebase";
 
 const AllChanelsPanel = () => {
+  const [{ user }] = useStateValue();
   const [channelsRef, setChannels] = useState([]);
   const [search_results, setSearchResults] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const unsubscribe = db.collection("rooms").onSnapshot((snapShot) => {
-      setChannels(
-        snapShot.docs.map((doc) => ({
-          id: doc.id,
-          data: doc.data(),
-        }))
-      );
-    });
+    if (user) {
+      //-- Obtain list of available chat rooms/ filter rooms by ban list.
+      const unsubscribe = db.collection("rooms").onSnapshot((snapShot) => {
+        let channels = [];
+        snapShot.docs.forEach((doc) => {
+          //-- Check if user is on the ban list
+          const isOnBanArr = doc
+            .data()
+            .banList.filter((name) => name.includes(user.uid));
+          if (isOnBanArr.length === 0) {
+            channels.push({
+              id: doc.id,
+              data: doc.data(),
+            });
+          }
+        });
+        setChannels(channels);
+      });
 
-    return () => {
-      unsubscribe();
-    };
-  }, []);
+      return () => {
+        unsubscribe();
+      };
+    }
+  }, [user]);
 
   const handleSearchChange = (evt) => {
     setLoading(true);
