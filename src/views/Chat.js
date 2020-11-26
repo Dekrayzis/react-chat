@@ -6,10 +6,12 @@ import SideBar from "../components/containers/sidebar/SideBar";
 
 const Chat = () => {
   return (
-    <div className="app__body">
-      <SideBar />
-      <ChatWindow />
-    </div>
+    <>
+      <div className="app__body">
+        <SideBar />
+        <ChatWindow />
+      </div>
+    </>
   );
 };
 

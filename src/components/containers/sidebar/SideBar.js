@@ -1,69 +1,94 @@
-import React from "react";
+import React, { useState } from "react";
 import "./sidebar.scss";
+
+//-- Containers
 import AvatarDetails from "./../avatarDetails/AvatarDetails";
-import { MenuButton } from "./../../elements";
 import SidebarPanel from "../sidebarPanel/SidebarPanel";
+import DirectMessages from "./../directMessages/DirectMessages";
+import Favourites from "../favourite/Favourites";
+
+//-- Elements
+import { MenuButton, IconButton } from "./../../elements";
+import CreateChat from "../createChat/CreateChat";
+
 import { useStateValue } from "../../../context/StateProvider";
 
 import { auth } from "../../../firebase";
 
 const currentYear = new Date().getFullYear();
 
-const mainMenu = [
-  {
-    id: 0,
-    label: "New chat",
-    icon: "chat-empty",
-  },
-  {
-    id: 1,
-    label: "New group",
-    icon: "users",
-  },
-  {
-    id: 2,
-    label: "Friends",
-    icon: "users",
-  },
-  {
-    id: 2,
-    label: "Favourites",
-    icon: "heart-empty-1",
-  },
-  {
-    id: 2,
-    label: "Settings",
-    icon: "cog-1",
-  },
-  {
-    id: 2,
-    label: "Log out",
-    icon: "logout",
-    func: () => {
-      auth.signOut().then(() => console.log("signed out"));
-    },
-  },
-];
 const SideBar = () => {
   const [{ user, currentChannel, showAllChannels }, dispatch] = useStateValue();
-  return (
-    <aside className="sidebar">
-      <div className="sidebar__header">
-        <AvatarDetails user={user} size="lrg" />
-      </div>
+  const [showModal, setToggleModal] = useState(false);
 
-      <div className="sidebar__menu">
-        {mainMenu.map((ctrl) => (
-          <MenuButton
-            label={ctrl.label}
-            icon={`icon-${ctrl.icon}`}
-            onClick={ctrl.func}
+  const mainMenu = [
+    {
+      id: 0,
+      label: "New chat",
+      icon: "chat-empty",
+      func: () => {
+        setToggleModal(true);
+      },
+    },
+    {
+      id: 1,
+      label: "Chat rooms",
+      icon: "users",
+    },
+    {
+      id: 2,
+      label: "Friends",
+      icon: "users",
+    },
+    {
+      id: 3,
+      label: "Favourites",
+      icon: "heart-empty-1",
+    },
+    {
+      id: 4,
+      label: "Settings",
+      icon: "cog-1",
+    },
+    {
+      id: 5,
+      label: "Log out",
+      icon: "logout",
+      func: () => {
+        auth.signOut().then(() => console.log("signed out"));
+      },
+    },
+  ];
+
+  return (
+    <>
+      <aside className="sidebar">
+        <div className="sidebar__header">
+          <AvatarDetails
+            image={user.photoURL}
+            name={user.displayName}
+            size="lrg"
           />
-        ))}
-      </div>
-      <SidebarPanel />
-      <span className="copyright">&copy; {currentYear} Vicenco inc </span>
-    </aside>
+        </div>
+
+        <div className="sidebar__menu">
+          {mainMenu.map((ctrl) => (
+            <MenuButton
+              key={`menu-0${ctrl.id}`}
+              label={ctrl.label}
+              icon={`icon-${ctrl.icon}`}
+              onClick={ctrl.func}
+            />
+          ))}
+        </div>
+        {/* <SidebarPanel /> */}
+        <DirectMessages />
+        <span className="copyright">&copy; {currentYear} Vicenco inc </span>
+      </aside>
+      {showModal ? (
+        <CreateChat user={user} closeModal={() => setToggleModal(!showModal)} />
+      ) : null}
+    </>
   );
 };
 

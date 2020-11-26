@@ -53,7 +53,6 @@ const ChatFooter = ({ channelID }) => {
 
   const openModal = () => setUploadModal(true);
   const closeModal = () => {
-    console.log("closed" + uploadModal);
     setUploadModal(false);
   };
 

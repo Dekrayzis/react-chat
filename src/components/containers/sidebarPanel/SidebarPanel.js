@@ -1,41 +1,59 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import ToggleButton from "../../elements/buttons/ToggleButton";
 import ChannelLink from "../channelLink/ChannelLink";
 import { useStateValue } from "../../../context/StateProvider";
 
+import db from "../../../firebase";
+
 //-- Stylesheet
 import "./sidebarPanel.scss";
 
-const channels = [
-  {
-    id: 0,
-    name: "Assassin's Creed",
-    status: "online",
-    user: true,
-  },
-  {
-    id: 1,
-    name: "Design",
-    status: "away",
-  },
-  {
-    id: 2,
-    name: "Games",
-    status: "offline",
-    notifications: true,
-  },
-];
+// const channels = [
+//   {
+//     id: 0,
+//     name: "Assassin's Creed",
+//     status: "online",
+//     user: true,
+//   },
+//   {
+//     id: 1,
+//     name: "Design",
+//     status: "away",
+//   },
+//   {
+//     id: 2,
+//     name: "Games",
+//     status: "offline",
+//     notifications: true,
+//   },
+// ];
 
 const SidebarPanel = () => {
   const [{ user, currentChannel, showAllChannels }, dispatch] = useStateValue();
   const [toggleChannels_Panel, setShowAllChannels_Panel] = useState(true);
+
+  const [channelsRef, setChannels] = useState([]);
+
+  useEffect(() => {
+    const unsubscribe = db.collection("rooms").onSnapshot((snapShot) => {
+      setChannels(
+        snapShot.docs.map((doc) => ({
+          id: doc.id,
+          data: doc.data(),
+        }))
+      );
+    });
+    return () => {
+      unsubscribe();
+    };
+  }, []);
 
   useEffect(() => {
     setShowAllChannels_Panel(!toggleChannels_Panel);
   }, [showAllChannels]);
 
   const toggle_allchannels = () => {
-    console.log("hit");
     dispatch({
       type: "SET_TOGGLE_ALL_CHANNELS",
       showAllChannels: !toggleChannels_Panel,
@@ -59,9 +77,9 @@ const SidebarPanel = () => {
         </div>
       </div>
       <div className="sidebar_panel_area">
-        {channels.map((ch) => (
-          <ChannelLink key={ch.id} info={ch} />
-        ))}
+        {/* {channelsRef.map((ch) => (
+          <ChannelLink key={ch.id} channelId={ch.id} info={ch.data} />
+        ))} */}
       </div>
     </div>
   );
