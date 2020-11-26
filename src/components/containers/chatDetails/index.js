@@ -82,7 +82,7 @@ const ChannelDetails = ({ channel, currMsgs, user }) => {
   ];
 
   useEffect(() => {
-    const addUserFavouritesListener = async (channelId) => {
+    const addUserFavouritesListener = (channelId) => {
       usersRef
         .collection("favourites")
         .where("id", "==", channelId)
@@ -97,7 +97,7 @@ const ChannelDetails = ({ channel, currMsgs, user }) => {
     };
     addUserFavouritesListener(channel.id, user.uid);
 
-    const addMuteNotificationListener = async (channelId) => {
+    const addMuteNotificationListener = (channelId) => {
       usersRef
         .collection("notifications")
         .where("id", "==", channelId)

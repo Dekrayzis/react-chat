@@ -16,6 +16,7 @@ const CreateChat = ({ closeModal, user }) => {
         createdAt: new Date(),
         createdBy: user.displayName,
         description: localData.description,
+        banList: [],
         isUser: false,
       });
 
