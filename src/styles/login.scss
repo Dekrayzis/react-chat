@@ -1,1 +1,253 @@
 @import "./variables";
+
+// Size
+$regular: 16px;
+$ball-xl: 550px;
+$ball-l: 280px;
+$ball-m: 260px;
+$ball-s: 110px;
+
+// Color
+$red: #e15866;
+$orange: #f5a900;
+$green: #06b7aa;
+$purple: #cd67cc;
+$light-grey: #e5e6e9;
+$grey: #666666;
+$grey-20: lighten($grey, 20%);
+$blue: #2e3c55;
+
+.background {
+  position: relative;
+  background-color: $light-grey;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+
+  .ball-container {
+    position: absolute;
+    @mixin x-move($size, $duration, $id) {
+      @keyframes x-move-#{$id} {
+        100% {
+          transform: translateX(calc(100vw - #{$size}));
+        }
+      }
+      animation: x-move-#{$id} $duration linear infinite alternate;
+    }
+
+    @mixin y-move($size, $duration, $id) {
+      @keyframes y-move-#{$id} {
+        100% {
+          transform: translateY(calc(100vh - #{$size}));
+        }
+      }
+      animation: y-move-#{$id} $duration linear infinite alternate;
+    }
+
+    &.red {
+      height: $ball-l;
+      width: $ball-l;
+      @include x-move($ball-l, 4s, 1);
+    }
+    &.orange {
+      height: $ball-s;
+      width: $ball-s;
+      @include x-move($ball-s, 2s, 2);
+    }
+    &.green {
+      height: $ball-m;
+      width: $ball-m;
+      @include x-move($ball-m, 6s, 3);
+    }
+    &.purple {
+      height: $ball-xl;
+      width: $ball-xl;
+      @include x-move($ball-xl, 5s, 4);
+    }
+
+    .ball {
+      position: absolute;
+      border-radius: 50%;
+      top: 0;
+      left: 0;
+      &.red {
+        height: $ball-l;
+        width: $ball-l;
+        background-color: $red;
+        @include y-move($ball-l, 5s, 1);
+      }
+      &.orange {
+        height: $ball-s;
+        width: $ball-s;
+        background-color: $orange;
+        @include y-move($ball-s, 3s, 2);
+      }
+      &.green {
+        height: $ball-m;
+        width: $ball-m;
+        background-color: $green;
+        @include y-move($ball-m, 7s, 3);
+      }
+      &.purple {
+        height: $ball-xl;
+        width: $ball-xl;
+        background-color: $purple;
+        @include y-move($ball-xl, 9s, 4);
+      }
+    }
+  }
+}
+
+.card {
+  position: absolute;
+  width: 30%;
+  height: 40%;
+  min-width: 600px;
+  min-height: 300px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: -15px 15px 50px 0px rgba(0, 0, 0, 0.25);
+  padding: 46px;
+  overflow: hidden;
+  transform: translate(23vw, -70vh);
+  z-index: 99;
+
+  .form-container {
+    display: flex;
+    font-family: "Open Sans", sans-serif;
+    font-size: $regular;
+    color: $grey-20;
+
+    font-weight: 400;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+
+    flex-wrap: wrap;
+    * {
+      width: 100%;
+    }
+
+    .login__title {
+      transform: translate(73%, -36%);
+    }
+
+    .form-title {
+      font-size: 1.5rem;
+      margin-bottom: 59px;
+      padding-top: 0.5rem;
+      margin-top: -2.6rem;
+    }
+
+    .input {
+      position: relative;
+      min-height: 40px;
+
+      &.first {
+        padding-bottom: 52px;
+      }
+
+      .title {
+        position: absolute;
+        top: -20px;
+        left: 0;
+        color: $grey-20;
+        font-size: 16px;
+        transition: all 0.5s;
+      }
+
+      input {
+        border: none;
+        outline: none;
+        border-bottom: solid 1px $light-grey;
+        transition: all 0.5s;
+
+        &:focus {
+          outline: none;
+          border-color: $blue;
+        }
+
+        &:focus + label {
+          color: $blue;
+          font-size: 10px;
+        }
+      }
+    }
+    .info {
+      background-color: transparent;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s;
+      margin-top: 1rem;
+
+      &:hover {
+        color: darken($grey-20, 25%);
+      }
+    }
+
+    .btn-google-signIn {
+      margin-top: 1rem;
+      background-color: $themeColor;
+      color: whitesmoke;
+      border: 0;
+      border-radius: 6px;
+      padding: 0.75rem;
+      cursor: pointer;
+      transition: 0.6s;
+
+      &:hover {
+        background-color: darken($themeColor, 10);
+      }
+    }
+  }
+
+  .button-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 70px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+
+    .button {
+      width: 50%;
+      border: none;
+      outline: none;
+      font-size: 16px;
+      text-transform: uppercase;
+      color: $grey-20;
+      letter-spacing: 1px;
+      padding: 16px;
+      transition: all 0.5s;
+      cursor: pointer;
+
+      &.register {
+        text-align: left;
+
+        &:hover {
+          background-color: #e6e6e6;
+          color: white;
+        }
+      }
+
+      &.sign-in {
+        text-align: right;
+        background-color: $blue;
+        color: white;
+
+        &:hover {
+          background-color: darken($blue, 15%);
+        }
+      }
+    }
+  }
+}
+
+.app_logo {
+  position: fixed;
+  top: 20vh;
+  width: 20%;
+  left: 6vw;
+  z-index: 98;
+  opacity: 0.2;
+}
