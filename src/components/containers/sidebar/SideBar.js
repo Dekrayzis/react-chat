@@ -85,7 +85,11 @@ const SideBar = () => {
         <span className="copyright">&copy; {currentYear} Vicenco inc </span>
       </aside>
       {showModal ? (
-        <CreateChat user={user} closeModal={() => setToggleModal(!showModal)} />
+        <CreateChat
+          user={user}
+          closeModal={() => setToggleModal(!showModal)}
+          open={showModal}
+        />
       ) : null}
     </>
   );

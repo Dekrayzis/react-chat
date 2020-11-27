@@ -74,51 +74,51 @@ const DirectMessages = () => {
       : `${user.uid}/${userId}`;
   };
 
-  useEffect(() => {
-    const unsubscribe = usersRef.on("child_added", (snap) => {
-      let loadedUsers = [];
+  // useEffect(() => {
+  //   const unsubscribe = usersRef.on("child_added", (snap) => {
+  //     let loadedUsers = [];
 
-      if (user.uid !== snap.key) {
-        let diffUser = snap.val();
-        diffUser["uid"] = snap.key;
-        diffUser["status"] = "offline";
+  //     if (user.uid !== snap.key) {
+  //       let diffUser = snap.val();
+  //       diffUser["uid"] = snap.key;
+  //       diffUser["status"] = "offline";
 
-        loadedUsers.push(diffUser);
-        setUsers(loadedUsers);
-      }
-    });
+  //       loadedUsers.push(diffUser);
+  //       setUsers(loadedUsers);
+  //     }
+  //   });
 
-    const unsubConnected = connectedRef.on("value", (snap) => {
-      if (snap.val() === true) {
-        const ref = presenceRef.child(user.uid);
-        ref.set(true);
-        ref.onDisconnect().remove((err) => {
-          console.error(err);
-        });
-      }
-    });
+  //   const unsubConnected = connectedRef.on("value", (snap) => {
+  //     if (snap.val() === true) {
+  //       const ref = presenceRef.child(user.uid);
+  //       ref.set(true);
+  //       ref.onDisconnect().remove((err) => {
+  //         console.error(err);
+  //       });
+  //     }
+  //   });
 
-    const unsubUsersAdded = presenceRef.on("child_added", (snap) => {
-      if (user.uid !== snap.key) {
-        //-- add status to user
-        addStatusToUser(snap.key);
-      }
-    });
+  //   const unsubUsersAdded = presenceRef.on("child_added", (snap) => {
+  //     if (user.uid !== snap.key) {
+  //       //-- add status to user
+  //       addStatusToUser(snap.key);
+  //     }
+  //   });
 
-    const unsubUsersRemoved = presenceRef.on("child_removed", (snap) => {
-      if (user.uid !== snap.key) {
-        //-- remove status to user
-        addStatusToUser(snap.key, false);
-      }
-    });
+  //   const unsubUsersRemoved = presenceRef.on("child_removed", (snap) => {
+  //     if (user.uid !== snap.key) {
+  //       //-- remove status to user
+  //       addStatusToUser(snap.key, false);
+  //     }
+  //   });
 
-    return () => {
-      unsubscribe();
-      unsubConnected();
-      unsubUsersAdded();
-      unsubUsersRemoved();
-    };
-  }, []);
+  //   return () => {
+  //     unsubscribe();
+  //     unsubConnected();
+  //     unsubUsersAdded();
+  //     unsubUsersRemoved();
+  //   };
+  // }, []);
 
   useEffect(() => {
     setShowAllChannels_Panel(!toggleChannels_Panel);

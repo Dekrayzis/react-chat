@@ -1,4 +1,5 @@
-#modal {
+#modal,
+.modal {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -7,6 +8,13 @@
   height: 100vh;
   width: 100vw;
   z-index: -1;
+
+  .modal-close {
+    border: 0;
+    position: absolute;
+    top: 4px;
+    right: -10px;
+  }
 }
 
 .overlay {
@@ -29,11 +37,6 @@
       position: relative;
 
       .modal_title {
-      }
-      .modal-close {
-        position: absolute;
-        top: 4px;
-        right: -10px;
       }
     }
 
