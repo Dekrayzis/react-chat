@@ -9,7 +9,7 @@ import IconButton from "./../../elements/buttons/IconButton";
 //-- Containers
 import ChatDetails from "../chatDetails";
 import AllChanelsPanel from "../allChannels/AllChanelsPanel";
-// import UserDetails from "../chatDetails/UserDetails";
+import UserDetails from "../chatDetails/UserDetails";
 
 import { useStateValue } from "../../../context/StateProvider";
 
@@ -28,6 +28,8 @@ const initialSearchState = {
 const ChatWindow = () => {
   const [{ user, currentChannel, showAllChannels }, dispatch] = useStateValue();
   const [toggleChatDetails, setToggleChatDetails] = useState(false);
+  const [toggleUserDetails, setToggleUserDetails] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
   const [loading, setLoading] = useState(false);
   const [searchModal, setSearchModal] = useState(false);
   const [searchResults, setSearchResults] = useState(initialSearchState);
@@ -74,6 +76,11 @@ const ChatWindow = () => {
     }
   };
 
+  const viewUserDetails = (userId) => {
+    setSelectedUser(userId);
+    setToggleUserDetails(!toggleUserDetails);
+  };
+
   const renderMsgs = (arr) => {
     return arr.map((msg, idx) => (
       <div
@@ -82,7 +89,12 @@ const ChatWindow = () => {
           msg.name === user.displayName && "chat__receiver"
         }`}
       >
-        <span className="chat__name">{msg.name}</span>
+        <span
+          className="chat__name"
+          onClick={() => viewUserDetails(msg.userId)}
+        >
+          {msg.name}
+        </span>
         {isImage(msg) ? <img src={msg.image} alt="an image" /> : msg.message}
         <span className="chat__timestamp">
           {new Date(msg.timestamp?.toDate()).toUTCString()}
@@ -164,7 +176,13 @@ const ChatWindow = () => {
       )}
 
       {/* User details panel */}
-      {/* {toggleChatDetails && <UserDetails />} */}
+      {/* {toggleUserDetails && (
+        <UserDetails
+          selectedUser={selectedUser}
+          user={user}
+          channel={currentChannel}
+        />
+      )} */}
     </>
   );
 };

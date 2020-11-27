@@ -3,19 +3,20 @@ import Modal from "./../modal/Modal";
 import { IconButton } from "../../elements";
 import db from "../../../firebase";
 
-const CreateChat = ({ closeModal, user }) => {
-  const [localData, setLocalData] = useState({ name: "", description: "" });
+const CreateChat = ({ closeModal, user, open }) => {
+  const [channelName, setName] = useState("");
+  const [channelDesc, setDesc] = useState("");
 
   const createChat = (evt) => {
     evt.preventDefault();
 
-    if (localData.name !== "") {
+    if (channelName !== "") {
       db.collection("rooms").add({
-        name: localData.name,
+        name: channelName,
         adminId: user.uid,
         createdAt: new Date(),
         createdBy: user.displayName,
-        description: localData.description,
+        description: channelDesc,
         banList: [],
         isUser: false,
       });
@@ -25,12 +26,12 @@ const CreateChat = ({ closeModal, user }) => {
   };
 
   return (
-    <Modal>
+    <Modal onClose={closeModal} open={open}>
       <div className="container">
         <div className="modal__header">
           <h3 className="modal_title">Add new channel</h3>
           <button className="modal-close" onClick={closeModal}>
-            X
+            &times;
           </button>
         </div>
         <div className="modal__body">
@@ -38,14 +39,14 @@ const CreateChat = ({ closeModal, user }) => {
             type="text"
             className="input"
             placeholder="Name of channel"
-            onChange={(e) => setLocalData({ name: e.target.value })}
+            onChange={(e) => setName(e.target.value)}
           />
           <textarea
             rows="6"
             type="text"
             className="textArea"
             placeholder="Channel description"
-            onChange={(e) => setLocalData({ description: e.target.value })}
+            onChange={(e) => setDesc(e.target.value)}
           />
         </div>
         <div className="modal__actions">

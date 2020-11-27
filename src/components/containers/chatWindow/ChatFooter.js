@@ -30,6 +30,7 @@ const ChatFooter = ({ channelID }) => {
     const message = {
       name: user.displayName,
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      userId: user.uid,
     };
 
     if (fileUrl !== null) {

@@ -1,25 +1,26 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { createPortal } from "react-dom";
 import "./modal.scss";
 
-const modalRoot = document.getElementById("modal");
-
-const Modal = ({ children }) => {
-  const element = document.createElement("div");
+const Modal = ({ children, onClose, open }) => {
+  const modalElement = document.getElementById("modal");
 
   useEffect(() => {
-    modalRoot.appendChild(element).classList.add("overlay");
-    modalRoot.style.zIndex = "99";
+    modalElement.classList.add("overlay");
+    modalElement.style.zIndex = "99";
 
     return () => {
-      modalRoot.removeChild(element);
-      modalRoot.style.zIndex = "-1";
+      modalElement.style.zIndex = "-1";
     };
   }, []);
 
-  return createPortal(children, element);
+  return open
+    ? createPortal(
+        <div className="modal">{children}</div>,
+        document.getElementById("modal")
+      )
+    : null;
 };
-
 export default Modal;
