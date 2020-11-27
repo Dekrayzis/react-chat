@@ -1,12 +1,13 @@
 @import "../../../styles/variables";
 
 .sidebar_panel {
-  padding: 0 0 1rem 1rem;
+  padding-bottom: 1rem;
 
   .sidebar_panel__header_title {
     display: flex;
     justify-content: space-between;
     margin-bottom: 1rem;
+    padding: 0 1rem;
 
     .sidebar_panel__header_left {
       .sidebar_panel_title,

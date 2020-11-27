@@ -1,48 +1,73 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 //-- Elements
 import ChannelLink from "../channelLink/ChannelLink";
 import { ToggleButton } from "../../elements";
 
 import { useStateValue } from "../../../context/StateProvider";
+import db from "../../../firebase";
 
 const Favourites = () => {
   const [{ user, currentChannel, showAllChannels }, dispatch] = useStateValue();
-  const [starredChannels, setStarredChannels] = useState(0);
   const [activeChannel, setActiveChannel] = useState("");
+  const [favouritesList, setFavouritesList] = useState([]);
+
+  const usersRef = db.collection("users").doc(user.uid);
+  const userFavouritesList = usersRef.collection("favourites");
 
   const changeChannel = (channel) => {
     setActiveChannel(channel);
     dispatch({
       type: "SET_CURRENT_CHANNEL",
       currentChannel: channel,
-    }).then(() => {
-      dispatch({
-        type: "SET_PRIVATE_CHANNEL",
-        isPrivateChannel: false,
-      });
+    });
+    dispatch({
+      type: "SET_PRIVATE_CHANNEL",
+      isPrivateChannel: false,
     });
   };
 
-  const displayChannels = (starredChannels) => {
-    starredChannels.length > 0 &&
-      starredChannels.map((channel) => (
+  const displayChannels = () => {
+    return (
+      favouritesList.length > 0 &&
+      favouritesList.map((channel) => (
         <ChannelLink
           key={`user-${channel.id}`}
           channelId={channel.id}
-          info={channel.data}
-          onClick={changeChannel(channel)}
+          info={channel}
+          onClick={() => changeChannel(channel)}
           active={channel.id === activeChannel}
         />
-      ));
+      ))
+    );
   };
+
+  useEffect(() => {
+    const addUserFavouritesListener = async () => {
+      const favourites_ref = await userFavouritesList.get();
+      let tempList = [];
+      //-- Retrieve favourite channels
+      favourites_ref.forEach((doc) => {
+        tempList.push(doc.data());
+      });
+
+      setFavouritesList(tempList);
+    };
+    addUserFavouritesListener();
+    return () => {
+      addUserFavouritesListener();
+    };
+  }, [user]);
+
+  useEffect(() => {}, [activeChannel]);
 
   return (
     <div className="sidebar_panel">
       <div className="sidebar_panel__header_title">
         <div className="sidebar_panel__header_left">
           <span className="sidebar_panel_title">
-            Favourites <span className="title_counter">(0)</span>
+            Favourites{" "}
+            <span className="title_counter">({favouritesList.length})</span>
           </span>
         </div>
         <div className="sidebar_panel__header_right">
@@ -53,7 +78,7 @@ const Favourites = () => {
           />
         </div>
       </div>
-      <div className="sidebar_panel_area">{displayChannels}</div>
+      <div className="sidebar_panel_area">{displayChannels()}</div>
     </div>
   );
 };
