@@ -1,16 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
-import firebase from "firebase";
 import moment from "moment";
 
 //-- Components
 import { MenuButton, Toast } from "./../../elements";
 import AvatarDetails from "../avatarDetails/AvatarDetails";
 
-//-- Stylesheet
-import "./chatDetails.scss";
 import UserGroup from "../../elements/userGroup/UserGroup";
 import db from "./../../../firebase";
+
+//-- Stylesheet
+import "./chatDetails.scss";
 
 const ChannelDetails = ({ channel, currMsgs, user }) => {
   const [isChannelStarred, setChannelStarred] = useState(false);

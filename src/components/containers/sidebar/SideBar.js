@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+/* eslint-disable no-unused-vars */
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from "react";
 import "./sidebar.scss";
 
 //-- Containers
@@ -17,8 +19,17 @@ import { auth } from "../../../firebase";
 const currentYear = new Date().getFullYear();
 
 const SideBar = () => {
-  const [{ user }] = useStateValue();
   const [showModal, setToggleModal] = useState(false);
+  const [{ user, currentChannel, showAllChannels }, dispatch] = useStateValue();
+  const [toggleChannels_Panel, setShowAllChannels_Panel] = useState(false);
+
+  const toggle_allchannels = () => {
+    setShowAllChannels_Panel(!toggleChannels_Panel);
+    dispatch({
+      type: "SET_TOGGLE_ALL_CHANNELS",
+      showAllChannels: !toggleChannels_Panel,
+    });
+  };
 
   const mainMenu = [
     {
@@ -33,6 +44,7 @@ const SideBar = () => {
       id: 1,
       label: "Chat rooms",
       icon: "users",
+      func: () => toggle_allchannels(),
     },
     {
       id: 2,
@@ -42,7 +54,7 @@ const SideBar = () => {
     {
       id: 3,
       label: "Favourites",
-      icon: "heart-empty-1",
+      icon: "star-empty-1",
     },
     {
       id: 4,
@@ -82,6 +94,7 @@ const SideBar = () => {
         </div>
         {/* <SidebarPanel /> */}
         <DirectMessages />
+        <Favourites />
         <span className="copyright">&copy; {currentYear} Vicenco inc </span>
       </aside>
       {showModal ? (
