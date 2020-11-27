@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import mime from "mime-types";
+import IconButton from "../buttons/IconButton";
 
 import "./modal.scss";
 
@@ -36,8 +37,8 @@ const FileModal = ({ modal, closeModal, uploadFile }) => {
         <input type="file" onChange={addFile} />
       </div>
       <div className="modal__footer">
-        <button onClick={sendFile}>Upload</button>
-        <button onClick={closeModal}>Close</button>
+        <IconButton icon="icon-upload-cloud" onClick={sendFile} />
+        <IconButton icon="icon-cancel" onClick={closeModal} />
       </div>
     </div>
   );
